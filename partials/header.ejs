@@ -1,0 +1,345 @@
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | <%= title%></title>
+
+    <style>
+
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+        }
+
+        html {
+        font-size: 62.5%;
+        box-sizing: border-box;
+        }
+
+        body {
+        font-family: 'Poppins', sans-serif;
+        color: #444;
+        background-color: #dbdbdb;
+        height: 100vh;
+        /* padding: 2rem; */
+        }
+
+        nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4rem;
+        height: 90px;
+        background-color: rgb(198, 197, 197);
+        }
+
+        .welcome {
+        font-size: 3rem;
+        /* font-weight: bold; */
+        font-family: sans-serif;
+        }
+
+        /* .logo {
+        height: 5.25rem;
+        } */
+
+        .login {
+        display: flex;
+        }
+
+        .login__input {
+        border: none;
+        padding: 0.5rem 2rem;
+        font-size: 1.6rem;
+        font-family: inherit;
+        text-align: center;
+        width: 15rem;
+        border-radius:10px;
+        margin-right: 2rem;
+        color: inherit;
+        border: 1px solid #fff;
+        transition: all 0.3s;
+        }
+
+        .login__input:focus {
+        outline: none;
+        border: 1px solid #ccc;
+        }
+
+        .login__input::placeholder {
+        color: #bbb;
+        }
+
+        .login__btn, .tag {
+        border: none;
+        background: none;
+        font-size: 4rem;
+        color: inherit;
+        cursor: pointer;
+        transition: all 0.3s;
+        }
+
+        .tag {
+        text-decoration: none;
+        font-size: 3rem;
+        }
+
+        .login__btn:hover,
+        .login__btn:focus,
+        .btn--sort:hover,
+        .btn--sort:focus {
+        outline: none;
+        color: black;
+        }
+
+        .tasks{
+            font-family: Garamond;
+            font-size: 20px;
+            color: white;
+            /* padding: 0 95px; */
+            /* margin-bottom: 50px; */
+            overflow-x: scroll;
+        }
+
+        .tasks h2{
+            font-size: 30px;
+            text-align: left;
+            padding: 13px 0;
+            color:black;
+        }
+
+        .tasks table{
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
+            white-space: nowrap;
+        }
+
+        .tasks table thead{
+            border:1px solid darkgrey;
+            border-left: none;
+            border-right:none;
+            border-right:none;
+        }
+
+        .tasks table thead td{
+            font-weight: bold;
+            /* text-transform: uppercase; */
+            font-size: 22px;
+            padding: 13px 0;
+            padding-right: 10px;
+            color:black;
+        }
+
+
+        .tasks table tbody tr td{
+            padding-top:15px;
+            font-size: 20px;
+        }
+
+        .tasks table td i{
+            font-size: 30px;
+        }
+
+        .tasks table button:hover{
+            color:whitesmoke;
+            background: goldenrod;
+        }
+
+        /* MAIN */
+        .app {
+        position: relative;
+        max-width: 125rem;
+        margin: 4rem auto ;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto repeat(3, 15rem) auto;
+        gap: 3rem;
+        /* NOTE This creates the fade in/out animation */
+        opacity: 100;
+        transition: all 1s;
+        }
+
+        .launchDate {
+        grid-column: 1 / span 2;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        }
+
+        .launchDate__label {
+        font-size: 2.5rem;
+        font-weight: 500;
+        margin-bottom: -0.2rem;
+        }
+
+        .todayDate {
+        font-size: 1.6rem;
+        color: rgb(18, 90, 91);
+        line-height: 28px;
+        }
+
+        .numDays {
+        font-size: 3.5rem;
+        font-weight: 400;
+        }
+
+        /* MOVEMENTS/ TASK SUMMARY */
+        .movements {
+        grid-row: 2 / span 3;
+        background-image: linear-gradient(to top left,  #032320d0, rgb(91, 165, 171));
+        border-radius: 1rem;
+        overflow: scroll;
+        }
+        .movements h2{
+            font-size: 3rem;
+            text-align: center ;
+        }
+
+        .movements__row {
+        padding: 2rem 4rem;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        }
+
+        .movements__type {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        color: #fff;
+        padding: 0.1rem 1rem;
+        border-radius: 10rem;
+        margin-right: 2rem;
+        }
+
+        .movements__date {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        color: #666;
+        }
+
+
+        .movements__value {
+        font-size: 1.7rem;
+        margin-left: auto;
+        }
+
+
+        /* SUMMARY */
+        .addaTask {
+        grid-row: 5 / 6;
+        display: flex;
+        align-items: baseline;
+        padding: 0 0.3rem;
+        margin-top: 1rem;
+        }
+
+
+        /* PROJECT SUMMARY AND EMPLOYEES TABLE */
+        .overview {
+        border-radius: 1rem;
+        padding: 2rem 4rem;
+        /* color: #333; */
+        }
+
+        .overview_task_table{
+            border-radius: 1rem;
+            padding: 2rem 1rem;
+        }
+
+        .overview--projSumm {
+        background-image: linear-gradient(to top left, #3f87a6, #ebf8e1);
+        
+        }
+
+        .overview--employee {
+        background-image: linear-gradient(to top left, #5a676b, #8b939a);
+        grid-row: 3 / span 3;
+        }
+
+        .overview--employee table tbody td{
+            color: rgb(240, 240, 240);
+        }
+
+
+        h2 {
+        font-family: Garamond;
+        margin-bottom: 10px;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        }
+
+        /* .form {
+        display: grid;
+        grid-template-columns: 2.5fr 2.5fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 0.4rem 1rem;
+        } */
+
+        .form__label {
+        font-size: 1.7rem;
+        text-align: center;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        line-height: 20px;
+        }
+
+
+        /* CREATE TASK PAGE */
+        .createTask form{
+            max-width: 400px;
+            margin: 0 auto;
+            font-size: 20px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .createTask input{
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        .createTask label{
+            display: block;
+            margin-top: 24px;
+        }
+       
+        .button{
+            margin-top: 20px;
+            border-radius: 20px;
+            background: goldenrod;
+            color: white;
+            padding: 18px;
+            border: 0;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .createTaskLink{
+            margin-top: 0;
+            text-decoration: none;
+            width:100%;
+            text-align: center;
+        }
+
+        .completed{
+            border-radius: 20px;
+            background: darkgrey;
+            color: black;
+            padding:10px;
+            border: 0;
+        }
+
+        .heading{
+              padding-top: 30px;
+              padding-bottom:15px;
+              margin-left: 100px;
+              font-size: 40px;
+              font-family: 'Lucida Handwriting';
+            }
+
+    </style>
