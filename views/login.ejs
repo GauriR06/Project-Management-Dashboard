@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/header.ejs") %>
+</head>
+<body>
+
+    <!-- TOP NAV BAR -->
+    
+    <nav id="navbar">
+        
+        <p class="welcome">Log in to view Dashboard</p>
+        <p style="font-size: 60px;">&spades;</p>
+        <form class="login" action="/login" method="POST">
+            <input
+            type="text"
+            placeholder="Username"
+            id="username"
+            name="username"
+            class="login__input login__input--user"
+            />
+            <!-- In practice, use type="password" -->
+            <input
+            type="password"
+            placeholder="PIN"
+            id="password"
+            name="password"
+            class="login__input login__input--pin"
+            />
+            
+            <!-- submit button -->
+            <button class="login__btn">&rarr;</button>
+        </form>
+    </nav>
+    
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/header.ejs") %>
+</head>
+<body>
+
+    <!-- TOP NAV BAR -->
+    <%- include("../partials/logInNav.ejs") %>
+
+    <main class="app">
+        <!-- LAUNCH DATE -->
+        <div class="launchDate">
+            <div>
+            <p class="launchDate__label">Projected Launch Date:</p>
+            <p class="todayDate">
+                <!-- Today's date: <span class="date"></span> &emsp; -->
+                Tuesday, October 10,2023
+            </div>
+            <p class="numDays"></p>
+            
+        </div>
+
+        <!-- Task Table -->
+        <div class="movements">
+            <!-- Pending Tasks Table -->
+            <section class="overview_task_table tasks">
+                <h2>Pending Tasks </h2>
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>Completed</td>
+                            <td>&emsp;Task Name</td>
+                            <td>&emsp;Deadline</td>
+                            <td>&emsp;Employee</td>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% if(pendingTasks.length > 0){  %>
+                            <% pendingTasks.forEach(resultP => {  %>
+                                <tr>
+                                    
+                                    <td>
+                                        <form action="/updateTask" method="POST">
+                                            <input type="hidden" name="taskID" value="<%= resultP._id %>">
+                                            <button class="completed" type="submit">COMPLETED</button>
+                                        </form>
+                                    </td>
+                                    <td>&emsp;<%= resultP.task_name %></td>
+                                    <td>&emsp;<%= resultP.deadline_date %></td>
+                                    <td>&emsp;<%= resultP.employee_name %></td>
+                                </tr>
+                            <% }) %> 
+                        <% } %>    
+                    </tbody>
+                </table>
+
+            </section>
+            <br><br><br>    
+            <!-- Completed Tasks Table -->
+            <section class="overview_task_table tasks">
+                <h2> Completed Tasks </h2>
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <td>&emsp;Task Name</td>
+                            <td>&emsp;Deadline</td>
+                            <td>&emsp;Employee</td>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% if(completedTasks.length > 0){  %>
+                            <% completedTasks.forEach(resultC => {  %>
+                                <tr>
+                                    <td>&emsp;<%= resultC.task_name %></td>
+                                    <td>&emsp;<%= resultC.deadline_date %></td>
+                                    <td>&emsp;&emsp;<%= resultC.employee_name %></td>
+                                </tr>
+                            <% }) %> 
+                        <% } %>    
+                    </tbody>
+                </table>
+
+            </section>
+
+        </div>
+
+        <!-- Create New Task -->
+        <div class="addaTask">
+            <a class="button createTaskLink" href="/newTask">ADD A NEW TASK</a>
+        </div>
+
+        <!-- Project Summary -->
+        <div class="overview overview--projSumm">
+            <h2>Project Summary</h2>
+            <label class="form__label">Start Date:  &emsp;&emsp;2022-01-10</label><br>
+            <label class="form__label">End date: &emsp; &emsp; 2023-10-10</label><br>
+            <label class="form__label">Today's date: &emsp;<span class="date"></span></label><br>
+            <label class="form__label">Overall status: &emsp; On Time</label><br>
+        </div>
+
+        <!-- Employees section -->
+        <section class="overview overview--employee tasks">
+            <h2> Employees </h2>
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Employee Name &emsp;</td>
+                        <td>Designation</td>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <% if(empResult.length > 0){  %>
+                        <% empResult.forEach(emp => {  %>
+                            <tr>
+                                <td ><%= emp.emp_Firstname %> <%= emp.emp_Lastname %></td>
+                                <td ><%= emp.emp_designation %></td>
+                            </tr>
+                        <% }) %> 
+                    <% } %>    
+                </tbody>
+            </table>
+
+        </section>
+
+    </main> 
+    <br><br>
+
+    
+    <script>
+        'use strict';
+
+        //Elements
+       const todayDate = document.querySelector(".date") 
+       const numDays = document.querySelector(".numDays")
+
+       
+       //Launch date
+       let today = new Date().toISOString().slice(0, 10)
+       todayDate.innerHTML = `${today}`
+
+       var date1 = new Date(); //today's date
+       var date2 = new Date("10/10/2023"); //due date
+       var Difference_In_Time = date2.getTime() - date1.getTime();
+       var Difference_In_Days = (Difference_In_Time / (1000 * 3600 * 24)).toFixed(0);
+
+       numDays.innerHTML = `Days left: ${Difference_In_Days}`
+       
+
+
+    </script>
+</body>
+</html>

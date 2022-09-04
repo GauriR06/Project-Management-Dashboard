@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/header.ejs") %>
+</head>
+<body>
+    <!-- NAV BAR -->
+    <%- include("../partials/logInNav.ejs") %>
+        
+    <h2 class="heading">New Task</h2>
+    <div class="createTask content">
+        <form action="/createTask_success" method="POST"> 
+            <label for="task_name">Enter task name:</label>
+            <input type="text" id="task_name" name="task_name" required>
+
+            <label for="deadline">Enter task deadline:</label>
+            <input type="text" id="deadline" name="deadline" required>
+
+            <label for="empName">Enter employee assigned:</label>
+            <input type="text" id="empName" name="empName" required>
+
+            
+
+            <button class="button" type="submit">SUBMIT</button>
+        </form>
+    </div>
+
+</body>
+</html>
